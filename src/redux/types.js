@@ -1,0 +1,7 @@
+
+export const ADD_TODO = 'TODOS/ADD_TODO'
+export const EDIT_TODO = 'TODOS/EDIT_TODO'
+export const CHANGE_TODO_COLUMN = 'TODOS/CHANGE_TODO_COLUMN'
+export const REMOVE_TODO = 'TODOS/REMOVE_TODO'
+export const SEARCH = 'TODOS/SEARCH'
+export const ADD_COMMENT = 'TODOS/ADD_COMMENT'
