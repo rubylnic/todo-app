@@ -69,48 +69,48 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
     }
     return (
 
-        <div>
-            <form className="todo__form" onSubmit={handleSubmit}>
-                <label className="todo__label">
-                    <span className="todo__label-text">Title</span>
-                    <input className="todo__input" type="text" onChange={(evt) => { setTitle(evt.target.value) }} value={title} />
-                </label>
-                <label className="todo__label">
-                    <span className="todo__label-text">Description</span>
-                    <input className="todo__input" type="text" onChange={(evt) => { setDescription(evt.target.value) }} value={description} />
-                </label>
-                <label className="todo__label">
-                    <span className="todo__label-text">Date</span>
-                    <input className="todo__input" type="date" onChange={(evt) => { setDate(evt.target.value) }} value={date} />
-                </label>
-                <label className="todo__label">
-                    <span className="todo__label-text">Time taken</span>
-                    <input className="todo__input" type="text" onChange={(evt) => { setTimeTaken(evt.target.value) }} value={timeTaken} />
-                </label>
-                <label className="todo__label">
-                    <span className="todo__label-text">Final date</span>
-                    <input className="todo__input" type="date" onChange={(evt) => { setFinalDate(evt.target.value) }} value={finalDate} />
-                </label>
 
-                <select onChange={(evt) => { setPriority(evt.target.value) }}>
-                    <option value="">--Choose priority--</option>
-                    <option value="high">High</option>
-                    <option value="average">Average</option>
-                    <option value="low">Low</option>
-                </select>
-                <select onChange={changeTodoColumnHandler}
-                    value={status}>
-                    <option value="">--Choose status--</option>
-                    <option value={columnsIds[0]}>Queue</option>
-                    <option value={columnsIds[1]}>Development</option>
-                    <option value={columnsIds[2]}>Done</option>
-                </select>
-                {/* <label>
+        <form className="todo__form" onSubmit={handleSubmit}>
+            <label className="todo__label">
+                <span className="todo__label-text">Title</span>
+                <input className="todo__input" type="text" onChange={(evt) => { setTitle(evt.target.value) }} value={title} />
+            </label>
+            <label className="todo__label">
+                <span className="todo__label-text">Description</span>
+                <input className="todo__input" type="text" onChange={(evt) => { setDescription(evt.target.value) }} value={description} />
+            </label>
+            <label className="todo__label">
+                <span className="todo__label-text">Date</span>
+                <input className="todo__input" type="date" onChange={(evt) => { setDate(evt.target.value) }} value={date} />
+            </label>
+            <label className="todo__label">
+                <span className="todo__label-text">Time taken</span>
+                <input className="todo__input" type="text" onChange={(evt) => { setTimeTaken(evt.target.value) }} value={timeTaken} />
+            </label>
+            <label className="todo__label">
+                <span className="todo__label-text">Final date</span>
+                <input className="todo__input" type="date" onChange={(evt) => { setFinalDate(evt.target.value) }} value={finalDate} />
+            </label>
+
+            <select onChange={(evt) => { setPriority(evt.target.value) }}>
+                <option value="">--Choose priority--</option>
+                <option value="high">High</option>
+                <option value="average">Average</option>
+                <option value="low">Low</option>
+            </select>
+            <select onChange={changeTodoColumnHandler}
+                value={status}>
+                <option value="">--Choose status--</option>
+                <option value={columnsIds[0]}>Queue</option>
+                <option value={columnsIds[1]}>Development</option>
+                <option value={columnsIds[2]}>Done</option>
+            </select>
+            {/* <label>
                     <input type="file" onChange={(evt) => { console.log(evt.target.value) }} />
                 </label> */}
-                <input className="button" type="submit" />
-            </form>
+            <input className="button" type="submit" />
+        </form>
 
-        </div>
+
     )
 }
