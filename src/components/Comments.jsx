@@ -5,9 +5,9 @@ import Comment from './Comment';
 
 export default function Comments({ todoId, comment }) {
     const [showReplies, setShowReplies] = useState(true)
-    let postCommentsIds = useSelector(state => state.todos.comments.postIds);
     let comments = useSelector(state => state.todos.comments.byId);
     let commentsIds;
+    let postCommentsIds = useSelector(state => state.todos.todos.byId[todoId].comments);
     if (comment) {
         commentsIds = comment.comments;
     } else {
@@ -22,23 +22,28 @@ export default function Comments({ todoId, comment }) {
     const showRepliesHandler = () => {
         setShowReplies(!showReplies)
     }
-    console.log(commentsIds)
+
     return (
         <>
             {/* вот тут разобраться с отображением */}
             {/* show/hide */}
             {/* число комментариев */}
-            {!comment ? <div>Comments</div> : ''}
             {comment && comment.comments ? <button className="button" onClick={showRepliesHandler}>show replies</button> : ''}
-            <div>
-                {showReplies ?
-                    commentsIds.map(i => {
-                        const item = comments[i];
-                        return <Comment comment={item} todoId={todoId} />
-                    })
-                    : ''
-                }
-            </div>
+            {postCommentsIds.length || commentsIds.length ?
+
+                <div>
+                    {!comment ? <h4 className='todo__title'>Comments</h4> : ''}
+                    {showReplies ?
+                        commentsIds.map(i => {
+                            const item = comments[i];
+                            return <Comment comment={item} todoId={todoId} />
+                        })
+                        : ''
+                    }
+                </div> : ''
+
+            }
+
         </>
     )
 }

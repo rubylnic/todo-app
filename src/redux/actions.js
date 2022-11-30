@@ -4,7 +4,9 @@ import {
     EDIT_TODO,
     CHANGE_TODO_COLUMN,
     SEARCH,
-    ADD_COMMENT
+    ADD_COMMENT,
+    ADD_SUBTASK,
+    CHECK_SUBTASK
 } from './types';
 
 
@@ -66,5 +68,20 @@ export function addComment(string, id, todoId, commentId) {
         id,
         todoId,
         commentId
+    }
+}
+export function addSubtask(subtask, id, todoId) {
+    return {
+        type: ADD_SUBTASK,
+        subtask,
+        id,
+        todoId,
+    }
+}
+export function checkSubtask(id, checked) {
+    return {
+        type: CHECK_SUBTASK,
+        id,
+        checked
     }
 }

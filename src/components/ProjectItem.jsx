@@ -2,22 +2,21 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export default function ProjectItem({ projectName, description, id, columns }) {
-    console.log(columns)
     const navigate = useNavigate();
     const clickHandler = (evt) => {
-        navigate('/todo-app/todos', {
+        navigate(`/todos/${id}`, {
             state: {
                 id: id,
-                name: projectName,
+                projectName: projectName,
                 description: description,
-                columnsIds: columns
+                columns: columns
             }
         })
     }
     return (
-        <div onClick={clickHandler}>
-            <h2>{projectName}</h2>
-            <p>{description}</p>
+        <div className="todo__item" onClick={clickHandler}>
+            <h2 className="todo__title">{projectName}</h2>
+            <p className="todo__text">{description}</p>
         </div>
     )
 }

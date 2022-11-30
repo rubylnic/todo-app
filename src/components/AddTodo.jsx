@@ -9,18 +9,14 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
     const dispatch = useDispatch();
 
     const [id, setId] = useState("");
-    const [number, setNumber] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [timeTaken, setTimeTaken] = useState("");
     const [finalDate, setFinalDate] = useState("");
     const [priority, setPriority] = useState("");
-    const [attachedFiles, setAttachedFiles] = useState([]);
     const [status, setStatus] = useState("");
-    const [subTodos, setSubTodos] = useState([]);
-    const [comments, setComments] = useState([]);
-    console.log(lastIndex)
+
     useEffect(() => {
         if (oldTodo) {
             setTitle(oldTodo.title);
@@ -29,12 +25,8 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
             setTimeTaken(oldTodo.timeTaken);
             setFinalDate(oldTodo.finalDate);
             setPriority(oldTodo.priority);
-            setAttachedFiles(oldTodo.attachedFiles);
             setStatus(oldTodo.status);
-            setSubTodos(oldTodo.subTodos);
-            setComments(oldTodo.comments)
             setId(oldTodo.id)
-            setNumber(oldTodo.number)
         } else {
             setId(nanoid());
             setStatus(columnId)
@@ -46,15 +38,15 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
         id: id,
         title: title,
         number: lastIndex,
-        // description: "bla bla",
-        // date: "05.02",
-        // timeTaken: "30",
-        // finalDate: "05.02",
-        // priority: "high, average, low",
-        // attachedFiles: [1, 2, 3],
+        description: description,
+        date: date,
+        timeTaken: timeTaken,
+        finalDate: finalDate,
+        priority: priority,
         comments: [],
+        // attachedFiles: [1, 2, 3],
         status: status,
-        // subTodos: [1, 2, 3],
+        subTasks: [],
     }
 
     const handleSubmit = (evt) => {
@@ -78,19 +70,28 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
     return (
 
         <div>
-            <form className="form" onSubmit={handleSubmit}>
-                <label>
-                    <input className="form__input" placeholder="Title" onChange={(evt) => { setTitle(evt.target.value) }} value={title} />
+            <form className="todo__form" onSubmit={handleSubmit}>
+                <label className="todo__label">
+                    <span className="todo__label-text">Title</span>
+                    <input className="todo__input" type="text" onChange={(evt) => { setTitle(evt.target.value) }} value={title} />
                 </label>
-                <label>
-                    <input className="form__input" placeholder="Description" onChange={(evt) => { setDescription(evt.target.value) }} value={description} />
+                <label className="todo__label">
+                    <span className="todo__label-text">Description</span>
+                    <input className="todo__input" type="text" onChange={(evt) => { setDescription(evt.target.value) }} value={description} />
                 </label>
-                <label>
-                    <input className="form__input" placeholder="Time taken" onChange={(evt) => { setTimeTaken(evt.target.value) }} value={timeTaken} />
+                <label className="todo__label">
+                    <span className="todo__label-text">Date</span>
+                    <input className="todo__input" type="date" onChange={(evt) => { setDate(evt.target.value) }} value={date} />
                 </label>
-                <label>
-                    <input className="form__input" placeholder="Final date" type="date" onChange={(evt) => console.log(evt.target)} value={title} />
+                <label className="todo__label">
+                    <span className="todo__label-text">Time taken</span>
+                    <input className="todo__input" type="text" onChange={(evt) => { setTimeTaken(evt.target.value) }} value={timeTaken} />
                 </label>
+                <label className="todo__label">
+                    <span className="todo__label-text">Final date</span>
+                    <input className="todo__input" type="date" onChange={(evt) => { setFinalDate(evt.target.value) }} value={finalDate} />
+                </label>
+
                 <select onChange={(evt) => { setPriority(evt.target.value) }}>
                     <option value="">--Choose priority--</option>
                     <option value="high">High</option>
@@ -104,10 +105,10 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
                     <option value={columnsIds[1]}>Development</option>
                     <option value={columnsIds[2]}>Done</option>
                 </select>
-                <label>
+                {/* <label>
                     <input type="file" onChange={(evt) => { console.log(evt.target.value) }} />
-                </label>
-                <input type="submit" />
+                </label> */}
+                <input className="button" type="submit" />
             </form>
 
         </div>

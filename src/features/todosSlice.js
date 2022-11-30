@@ -6,7 +6,9 @@ import {
     EDIT_TODO,
     CHANGE_TODO_COLUMN,
     SEARCH,
-    ADD_COMMENT
+    ADD_COMMENT,
+    ADD_SUBTASK,
+    CHECK_SUBTASK
 } from "../redux/types";
 
 const localStoredState = JSON.parse(localStorage.getItem('state'));
@@ -68,7 +70,7 @@ const initialLocalState = {
         allIds: [],
         lastIndex: 1
     },
-    subtodos: {
+    subTasks: {
         byId: {},
         allIds: []
     },
@@ -80,14 +82,12 @@ const initialLocalState = {
     searchedTodos: [],
 }
 
-const initialState = localStoredState ? { ...localStoredState } : { ...initialLocalState }
+const initialState = localStoredState ? { ...localStoredState } : { ...initialLocalState };
 
 export const todosReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_TODO:
-            const string = (JSON.stringify(initialState));
-            const object = JSON.parse(string)
             const { todo, columnId, id } = action.payload;
             const columnsById = state.columns.byId;
 
@@ -121,7 +121,7 @@ export const todosReducer = (state = initialState, action) => {
             }
         case EDIT_TODO:
             return (() => {
-                const { todo, columnId, id } = action.payload;
+                const { todo, id } = action.payload;
                 const newState = {
                     ...state,
                     todos: {
@@ -194,7 +194,6 @@ export const todosReducer = (state = initialState, action) => {
                 // измнененный объект с todo
                 const { [id]: _, ...nextTodos } = todos.byId;
 
-                // console.log(todos.byId)
                 const todoIdIndex = todosIds.findIndex(item => item === id);
                 const columnIdIndex = columnsIds.findIndex(item => item === id);
 
@@ -272,7 +271,6 @@ export const todosReducer = (state = initialState, action) => {
                 let newState;
                 // если комментарий на комментарий
                 if (commentId) {
-                    console.log(state.comments.byId, commentId)
                     newState = {
                         ...state,
 
@@ -321,6 +319,76 @@ export const todosReducer = (state = initialState, action) => {
                         }
                     }
                 }
+                localStorage.setItem('state', JSON.stringify(newState))
+                return {
+                    ...newState
+                }
+            })()
+        case ADD_SUBTASK:
+            return (() => {
+                const { subtask, id, todoId } = action;
+
+                const newSubTask = {
+                    text: subtask,
+                    id: id,
+                    checked: false
+                }
+                let newState;
+
+                newState = {
+                    ...state,
+
+                    todos: {
+                        ...state.todos,
+                        byId: {
+                            ...state.todos.byId,
+                            [todoId]: {
+                                ...state.todos.byId[todoId],
+                                subTasks: [...state.todos.byId[todoId].subTasks, id]
+                            }
+                        },
+                    },
+                    subTasks: {
+                        ...state.subTasks,
+                        byId: {
+                            ...state.subTasks.byId,
+                            [id]: newSubTask
+                        },
+                        allIds: [
+                            ...state.subTasks.allIds, id
+                        ],
+                    }
+                }
+
+                localStorage.setItem('state', JSON.stringify(newState))
+                return {
+                    ...newState
+                }
+            })()
+        case CHECK_SUBTASK:
+            return (() => {
+                const { id, checked } = action;
+
+                let newState;
+
+                newState = {
+                    ...state,
+
+                    todos: {
+                        ...state.todos,
+                    },
+                    subTasks: {
+                        ...state.subTasks,
+                        byId: {
+                            ...state.subTasks.byId,
+                            [id]: {
+                                ...state.subTasks.byId[id],
+                                checked: checked
+                            }
+                        },
+                    }
+                }
+
                 localStorage.setItem('state', JSON.stringify(newState))
                 return {
                     ...newState

@@ -1,32 +1,48 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import Search from '../components/Search';
 import TodoColumn from '../components/TodoColumn';
 
 
 export default function TodosPage() {
     const location = useLocation();
-    const { name, description, id, columnsIds } = location.state;
-    let columns = useSelector(state => state.todos.columns);
-    console.log(id)
+    const params = useParams();
+    const projectId = params.id;
+    let projectInfo = useSelector(state => state.todos.projects.byId)[projectId];
+    let projectName, description, id, columns;
+
+    if (projectInfo) {
+        projectName = projectInfo.projectName;
+        description = projectInfo.description;
+        id = projectInfo.id;
+        columns = projectInfo.columns;
+    } else {
+        projectName = location.state.projectName;
+        description = location.state.description;
+        id = location.state.id;
+        columns = location.state.columns;
+    }
+
+    let columnsArr = useSelector(state => state.todos.columns);
+
     return (
-        <div>
-            <h2>{name}</h2>
-            <p>{description}</p>
+        <>
+            <h2 className="todo__title">{projectName}</h2>
+            <p className="todo__text">{description}</p>
             <Search />
-            <div className='todos'>
-                {columnsIds.map(i => {
-                    const item = columns.byId[i];
+            <div className='todo__columns'>
+                {columns.map(i => {
+                    const item = columnsArr.byId[i];
                     return <TodoColumn
                         id={item.id}
                         projectId={id}
                         title={item.columnName}
                         todosIds={item.todos}
-                        columnsIds={columnsIds}
+                        columnsIds={columns}
                     />
                 })}
             </div>
-        </div>
+        </>
     )
 }

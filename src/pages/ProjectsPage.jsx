@@ -7,11 +7,14 @@ export default function ProjectsPage() {
     let projectsIds = useSelector(state => state.todos.projects.allIds);
     return (
         <div>
-            <h1>Projects</h1>
-            {projectsIds.map(item => {
-                const project = projects.byId[item];
-                return <ProjectItem description={project.description} id={project.id} columns={project.columns} />
-            })}
+            <h2 className="todo__title">Projects</h2>
+            <div className='todo__projects'>
+                {projectsIds.map(item => {
+                    const project = projects.byId[item];
+                    console.log(project)
+                    return <ProjectItem description={project.description} id={project.id} columns={project.columns} projectName={project.projectName} />
+                })}
+            </div>
 
         </div>
     )

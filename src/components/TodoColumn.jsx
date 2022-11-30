@@ -13,10 +13,10 @@ export default function TodoColumn({ title, id, todosIds, columnsIds }) {
         setShowAddTodo(!showAddTodo)
     }
     return (
-        <div className='todos__column'>
-            <h1>{title}</h1>
-            <button className="button" onClick={addTodoClick}>Add todo</button>
-            <div className='todos__list'>
+        <div className='todo__column'>
+            <h2 className='todo__title'>{title}</h2>
+            <button className="todo__button button" onClick={addTodoClick}>Add todo</button>
+            <div className='todo__list'>
                 {todosIds.map(i => {
                     const item = todos.byId[i];
                     return <TodoItem todo={item} columnId={id} showModal={setShowAddTodo} columnsIds={columnsIds} />
@@ -24,7 +24,7 @@ export default function TodoColumn({ title, id, todosIds, columnsIds }) {
 
             </div>
             {showAddTodo ?
-                <Modal title="Add todo">
+                <Modal title="Add todo" showModal={setShowAddTodo}>
                     <AddTodo columnId={id} showModal={setShowAddTodo} columnsIds={columnsIds} />
                 </Modal> : ""}
         </div>

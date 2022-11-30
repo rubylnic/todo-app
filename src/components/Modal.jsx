@@ -1,16 +1,11 @@
 
-// import { useAppDispatch, useAppSelector } from "../store/hooks";
 import '../scss/Modal.scss';
-// import { closeModal } from "../store/modalSlice";
 
-export default function Modal(props) {
-    // const dispatch = useAppDispatch();
-    const type = props.type;
-    const children = props.children;
-    const title = props.title;
+export default function Modal({ type, children, title, showModal }) {
+
 
     function onCloseModal() {
-        // dispatch(closeModal(type))
+        showModal(false)
     }
 
     return (
@@ -18,7 +13,7 @@ export default function Modal(props) {
             <div className="modal__overlay" onClick={onCloseModal}>
                 <div className="modal__container" onClick={e => e.stopPropagation()}>
                     <button className="modal__button-close" type="button" aria-label="Закрыть окно" onClick={onCloseModal}></button>
-                    <h2 className="modal__title">{title}</h2>
+                    <h2 className="todo__title">{title}</h2>
                     {children}
                 </div>
             </div>
