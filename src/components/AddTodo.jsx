@@ -64,7 +64,7 @@ export default function AddTodo({ columnId, showModal, oldTodo, columnsIds }) {
         const nextStatus = evt.target.value;
         setStatus(nextStatus)
         if (oldTodo) {
-            dispatch(changeTodoColumn(id, todo, status, nextStatus))
+            dispatch(changeTodoColumn(id, status, nextStatus))
         }
     }
     return (

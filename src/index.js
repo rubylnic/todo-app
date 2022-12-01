@@ -5,6 +5,8 @@ import { rootReducer } from './redux/rootReducer';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import './reset.scss';
 
 const store = createStore(rootReducer, composeWithDevTools(
@@ -16,7 +18,9 @@ const store = createStore(rootReducer, composeWithDevTools(
 ReactDOM.render(
   // харнилище - стор
   <Provider store={store}>
-    <App />
+    <DndProvider backend={HTML5Backend}>
+      <App />
+    </DndProvider>
   </Provider>,
   document.getElementById('root')
 );

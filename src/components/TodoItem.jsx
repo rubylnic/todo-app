@@ -7,6 +7,8 @@ import AddTodo from './AddTodo';
 import Comments from './Comments';
 import SubTodos from './SubTodos'
 import Modal from './Modal';
+import { useDrag } from 'react-dnd'
+
 
 export default function TodoItem({ todo, columnId, columnsIds }) {
     const [showEditModal, setShowEditModal] = useState(false)
@@ -28,9 +30,22 @@ export default function TodoItem({ todo, columnId, columnsIds }) {
         setShowEditModal(true)
     }
 
+    const [{ isDragging }, dragRef] = useDrag(() => ({
+        type: 'CARD',
+        item: {
+            id: todo.id,
+            columnId: columnId
+        },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }))
+
+
+
     return (
         <>
-            <div className='todo__item'>
+            <div className={isDragging ? 'todo__item todo__item--dragged' : 'todo__item'} ref={dragRef}>
                 <div>{todo.number}</div>
                 <h3 className='todo__subtitle'>{todo.title}</h3>
                 <p className='todo__text'>{todo.description}</p>

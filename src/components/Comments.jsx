@@ -34,10 +34,12 @@ export default function Comments({ todoId, comment }) {
                 <div>
                     {!comment ? <h4 className='todo__title'>Comments</h4> : ''}
                     {showReplies ?
-                        commentsIds.map(i => {
-                            const item = comments[i];
-                            return <Comment comment={item} todoId={todoId} />
-                        })
+                        <div className='todo__comments'>
+                            {commentsIds.map(i => {
+                                const item = comments[i];
+                                return <Comment comment={item} todoId={todoId} />
+                            })}
+                        </div>
                         : ''
                     }
                 </div> : ''

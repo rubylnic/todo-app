@@ -129,6 +129,10 @@ select {
   gap: 10px;
 }
 
+.todo__comments {
+  margin-bottom: 20px;
+}
+
 .todo__comment {
   padding-left: 15px;
   border-left: 1px solid rgba(17, 87, 64, 0.3);
@@ -146,6 +150,10 @@ select {
   border: 2px solid rgba(17, 87, 64, 0.3);
   cursor: pointer;
   transition: all 0.3s ease-in;
+
+  &--dragged {
+    opacity: 0.9;
+  }
 
   .todo__text {
     margin-bottom: 10px;

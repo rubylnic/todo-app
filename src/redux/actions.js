@@ -32,12 +32,11 @@ export function editTodo(id, todo, columnId) {
     }
 }
 
-export function changeTodoColumn(id, todo, columnId, nextColumnId) {
+export function changeTodoColumn(id, columnId, nextColumnId) {
     return {
         type: CHANGE_TODO_COLUMN,
         payload: {
             id,
-            todo,
             columnId,
             nextColumnId
         }

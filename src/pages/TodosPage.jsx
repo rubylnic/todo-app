@@ -9,6 +9,7 @@ export default function TodosPage() {
     const location = useLocation();
     const params = useParams();
     const projectId = params.id;
+
     let projectInfo = useSelector(state => state.todos.projects.byId)[projectId];
     let projectName, description, id, columns;
 
@@ -32,6 +33,7 @@ export default function TodosPage() {
             <p className="todo__text">{description}</p>
             <Search />
             <div className='todo__columns'>
+
                 {columns.map(i => {
                     const item = columnsArr.byId[i];
                     return <TodoColumn
@@ -42,6 +44,7 @@ export default function TodosPage() {
                         columnsIds={columns}
                     />
                 })}
+
             </div>
         </>
     )
