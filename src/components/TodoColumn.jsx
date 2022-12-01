@@ -17,7 +17,9 @@ export default function TodoColumn({ title, id, todosIds, columnsIds }) {
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: 'CARD',
-        drop: (item) => dispatch(changeTodoColumn(item.id, item.columnId, id)),
+        drop: (item) => {
+            item.columnId !== id && dispatch(changeTodoColumn(item.id, item.columnId, id))
+        },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         })
