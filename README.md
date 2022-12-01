@@ -1,4 +1,4 @@
-# Todo App / App for managing projects, adding tasks, subtasks and comments
+# Kanban Board / App for managing projects, adding tasks, subtasks and comments
 
 This repository is my pet project, The project is posted on GitPages  : [click here](https://rubylnic.github.io/todo-app/).
 You can: add new tasks, set due time, taken time, add subtasks, leave comments (and also leave comments on comments) and change task status by drag'n'drop.
